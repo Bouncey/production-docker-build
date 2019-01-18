@@ -1,0 +1,9 @@
+server {
+  listen 80;
+  listen 443 ssl;
+  server_name medium.freecodecamp.com;
+
+  include snippets/ssl.conf;
+
+  return 301 https://medium.freecodecamp.org$request_uri;
+}

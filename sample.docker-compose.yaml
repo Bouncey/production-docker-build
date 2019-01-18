@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  proxy:
+    image: bouncey/freecodecamp-proxy
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - 'freecodecamp:freecodecamp'
+    volumes:
+      - /etc/ssl/:/etc/ssl/
+      - ./www:/var/www
+    environment:
+      FORUM_PROXY_ADDRESS: http://some-ip-address
+
+  freecodecamp:
+    restart: always
+    image: bouncey/freecodecamp-api
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+
+      MONGOHQ_URL: mongodb://localhost:27017/freecodecamp
+
+      ROLLBAR_APP_ID: my-rollbar-app-id
+      ROLLBAR_CLIENT_ID: my-rollbar-client-id
+
+      AUTH0_CLIENT_ID: this-is-me
+      AUTH0_CLIENT_SECRET: secretstuff
+      AUTH0_DOMAIN: auth.example.com
+
+      SESSION_SECRET: secretstuff
+      COOKIE_SECRET: 'this is a secret'
+      JWT_SECRET: 'a very long secret'
+
+      STRIPE_PUBLIC: pk_from_stipe_dashboard
+      STRIPE_SECRET: sk_from_stipe_dashboard
+
+      PAYPAL_SUPPORTERS: 1703
+      PEER: stuff
+      DEBUG: null
+      NODE_ENV: production
