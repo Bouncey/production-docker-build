@@ -2,17 +2,10 @@ dist: trusty
 
 jobs:
   include:
-    - stage: build proxy docker image
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t freecodecamp-proxy . -f Dockerfile.proxy
-      - docker images
-      - docker tag freecodecamp-proxy $DOCKER_USERNAME/freecodecamp-proxy
-      - docker push $DOCKER_USERNAME/freecodecamp-proxy
     - stage: build api docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t freecodecamp-api . -f Dockerfile.freecodecamp
+      - docker build -t freecodecamp-api-with-proxy .
       - docker images
-      - docker tag freecodecamp-api $DOCKER_USERNAME/freecodecamp-api
-      - docker push $DOCKER_USERNAME/freecodecamp-api
+      - docker tag freecodecamp-api-with-proxy $DOCKER_USERNAME/freecodecamp-api-with-proxy
+      - docker push $DOCKER_USERNAME/freecodecamp-api-with-proxy
