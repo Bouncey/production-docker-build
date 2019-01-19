@@ -17,11 +17,9 @@ RUN rm /etc/nginx/conf.d/default.conf
 
 RUN mkdir -p /home/node/app
 
-RUN git clone https://github.com/freecodecamp/freecodecamp.git /home/node/app
+RUN git clone --depth 1 -b production https://github.com/freecodecamp/freecodecamp.git /home/node/app
 
 WORKDIR /home/node/app/
-
-RUN git checkout production
 
 RUN npm install
 
