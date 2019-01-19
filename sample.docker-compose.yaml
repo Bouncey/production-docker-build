@@ -9,7 +9,7 @@ services:
     links:
       - 'freecodecamp:freecodecamp'
     volumes:
-      - /etc/ssl/:/etc/ssl/
+      - /etc/letsencrypt/:/etc/ssl/
       - ./www:/var/www
     environment:
       FORUM_PROXY_ADDRESS: http://some-ip-address
