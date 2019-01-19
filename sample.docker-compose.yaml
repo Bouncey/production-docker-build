@@ -20,6 +20,11 @@ services:
     ports:
       - 3000:3000
     environment:
+      # pm2 config
+      INSTANCES: 1
+      SERVER_NAME: 'your-server-name'
+      MAX_MEMORY: '390M'
+
       PORT: 3000
 
       MONGOHQ_URL: mongodb://localhost:27017/freecodecamp
