@@ -33,6 +33,8 @@ services:
 
       SESSION_SECRET: secretstuff
       COOKIE_SECRET: 'this is a secret'
+      # .example.com will match example.com and <subdomain>.example.com
+      COOKIE_DOMAIN: '.example.com'
       JWT_SECRET: 'a very long secret'
 
       STRIPE_PUBLIC: pk_from_stipe_dashboard
