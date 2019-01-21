@@ -6,11 +6,9 @@ RUN npm i -g pm2
 
 USER node
 
-RUN git clone https://github.com/freecodecamp/freecodecamp.git /home/node/app
+RUN git clone --depth 1 -b production https://github.com/freecodecamp/freecodecamp.git /home/node/app
 
 WORKDIR /home/node/app/
-
-RUN git checkout production
 
 RUN npm install
 
@@ -18,4 +16,6 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD [ "pm2", "-i 4", "--no-deamon", "--max-memory-restart 600M", "-n docker-nyc-www", "start", "server/production-start.js" ]
+ADD ./pm2.json .
+
+CMD [ "pm2", "start", "pm2.json", "--no-daemon" ]
