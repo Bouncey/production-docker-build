@@ -1,0 +1,21 @@
+FROM node:8
+
+RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
+
+RUN npm i -g pm2
+
+USER node
+
+RUN git clone --depth 1 -b production https://github.com/freecodecamp/freecodecamp.git /home/node/app
+
+WORKDIR /home/node/app/
+
+RUN npm install
+
+RUN npm run build
+
+EXPOSE 3000
+
+ADD ./pm2.json .
+
+CMD [ "pm2", "start", "pm2.json", "--no-daemon" ]
