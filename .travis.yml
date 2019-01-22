@@ -7,12 +7,12 @@ jobs:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t freecodecamp-api  -f Dockerfile.freecodecamp .
       - docker images
-      - docker tag freecodecamp-api $DOCKER_USERNAME/freecodecamp-api
+      - docker tag freecodecamp-api freecodecamp/freecodecamp-api
       - docker push $DOCKER_USERNAME/freecodecamp-api
     - stage: build proxy docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t freecodecamp-proxy  -f Dockerfile.proxy .
       - docker images
-      - docker tag freecodecamp-proxy $DOCKER_USERNAME/freecodecamp-proxy
+      - docker tag freecodecamp-proxy freecodecamp/freecodecamp-proxy
       - docker push $DOCKER_USERNAME/freecodecamp-proxy
