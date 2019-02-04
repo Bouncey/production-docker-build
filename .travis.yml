@@ -9,7 +9,7 @@ jobs:
     - stage: build api
       if: type != push
       script:
-        - docker build -t freecodecamp-api  -f Dockerfile.freecodecamp .
+        - docker build -t freecodecamp-api-master  -f Dockerfile.freecodecamp .
 
 
     - stage: build=>deploy proxy
@@ -24,7 +24,7 @@ jobs:
       if: type = push
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t freecodecamp-api  -f Dockerfile.freecodecamp .
+        - docker build -t freecodecamp-api-master  -f Dockerfile.freecodecamp .
         - docker images
-        - docker tag freecodecamp-api freecodecamp/freecodecamp-api
-        - docker push freecodecamp/freecodecamp-api
+        - docker tag freecodecamp-api-master freecodecamp/freecodecamp-api-master
+        - docker push freecodecamp/freecodecamp-api-master

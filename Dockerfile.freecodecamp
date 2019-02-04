@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:10
 
 RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
 
@@ -6,11 +6,15 @@ RUN npm i -g pm2
 
 USER node
 
-RUN git clone --depth 1 -b production https://github.com/freecodecamp/freecodecamp.git /home/node/app
+RUN git clone --depth 1 -b master https://github.com/freecodecamp/freecodecamp.git /home/node/app
 
 WORKDIR /home/node/app/
 
 RUN npm install
+
+RUN node tools/scripts/ensure-path-migration-map
+
+WORKDIR /home/node/app/api-server
 
 RUN npm run build
 
