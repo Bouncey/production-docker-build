@@ -1,6 +1,6 @@
 {
-	"name": "docker-spike-www",
-	"script": "./server/production-start.js",
+	"name": "docker-rocks-www",
+	"script": "lib/production-start.js",
 	"watch": false,
 	"env": {
 		"NODE_ENV": "production"
