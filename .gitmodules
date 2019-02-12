@@ -1,0 +1,3 @@
+[submodule "freecodecamp"]
+	path = freecodecamp
+	url = https://github.com/freeCodeCamp/freeCodeCamp.git

@@ -1,14 +1,19 @@
 FROM node:10
 
-RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
-
+# pm2 needs to install with a root user
 RUN npm i -g pm2
 
-USER node
-
-RUN git clone --depth 1 -b master https://github.com/freecodecamp/freecodecamp.git /home/node/app
+RUN mkdir -p /home/node/app
 
 WORKDIR /home/node/app/
+
+COPY ./freecodecamp/ ./
+
+# lerna bootstrap fails if the files do not belong to the current user
+# lerna bootstrap fails when run as root
+RUN chown -R node:node /home/node/app
+
+USER node
 
 RUN npm install
 
@@ -20,6 +25,13 @@ RUN npm run build
 
 EXPOSE 3000
 
-ADD ./pm2.json .
+COPY ./pm2.json .
+
+# Remove files not required for the API server
+WORKDIR /home/node/app
+
+RUN rm -rf client curriculum docs guide mock-guide tools
+
+WORKDIR /home/node/app/api-server
 
 CMD [ "pm2", "start", "pm2.json", "--no-daemon" ]
