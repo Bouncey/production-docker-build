@@ -1,5 +1,8 @@
 FROM node:10
 
+RUN apt-get update
+RUN apt-get install nano
+
 # pm2 needs to install with a root user
 RUN npm i -g pm2
 
