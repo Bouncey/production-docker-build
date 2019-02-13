@@ -3,28 +3,8 @@ dist: xenial
 jobs:
   include:
     - stage: build proxy
-      if: type != push
       script:
         - docker build -t freecodecamp-proxy  -f Dockerfile.proxy .
     - stage: build api
-      if: type != push
       script:
-        - docker build -t freecodecamp-api-master  -f Dockerfile.freecodecamp .
-
-
-    - stage: build=>deploy proxy
-      if: type = push
-      script:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t freecodecamp-proxy  -f Dockerfile.proxy .
-        - docker images
-        - docker tag freecodecamp-proxy freecodecamp/freecodecamp-proxy
-        - docker push freecodecamp/freecodecamp-proxy
-    - stage: build=>deploy api
-      if: type = push
-      script:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t freecodecamp-api-master  -f Dockerfile.freecodecamp .
-        - docker images
-        - docker tag freecodecamp-api-master freecodecamp/freecodecamp-api-master
-        - docker push freecodecamp/freecodecamp-api-master
+        - docker build -t freecodecamp-api  -f Dockerfile.freecodecamp .
