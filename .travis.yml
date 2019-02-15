@@ -7,4 +7,9 @@ jobs:
         - docker build -t freecodecamp-proxy  -f Dockerfile.proxy .
     - stage: build api
       script:
+        - cd freecodecamp
+        - npm install
+        - node tools/scripts/ensure-path-migration-map.js
+        - cd api-server
+        - npm run build
         - docker build -t freecodecamp-api  -f Dockerfile.freecodecamp .
